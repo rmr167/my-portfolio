@@ -1,7 +1,7 @@
 
 body {
-  background-color: lightblue;
-  font-family: verdana;
+    background-color: lightblue;
+    font-family: verdana;
 }
 
 #header {
@@ -13,21 +13,21 @@ body {
 }
 
 #content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 650px;
 }
 
 h1 {
     text-align: center;
 }
 
-.column {
-  float: left;
+.section {
+    float: left;
 }
 
 .left {
-  width: 60%;
+    width: 60%;
 }
 
 .right{
