@@ -1,39 +1,93 @@
 
 body {
-    background-color: lightblue;
-    font-family: verdana;
+    background-color:white;
+    font-family: helvetica;
+    padding: 0;
+    margin: 0;
+    letter-spacing: 1.5px;
 }
 
-#header {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    width: 650px;
+.name {
+    float: left;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: left;
+    padding: 30px;
+}
 
+.nav {
+    float: right;
+}
+
+.nav ul {
+    list-style-type: none;
+    padding: 30px;
+    text-align: right;
+    vertical-align: middle;
+}
+
+.nav li {
+    display: inline;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.nav a {
+    color: black;
+    text-decoration: none;
 }
 
 #content {
-    margin-left: auto;
-    margin-right: auto;
-    width: 650px;
+    clear: left;
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    line-height: 30px; 
 }
 
-h1 {
+#header {
+    border-top: medium solid lightgray;
+    border-bottom: medium solid lightgray;
+    text-align: center;
+    background-color: lightblue;
+    width:100%; 
+    padding: 30px;
+}
+
+#header img {
+    border-radius: 50%
+}
+
+#bio, #contact, #projectlist, #skilllist, #extralist, .post{
+    padding: 20px;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.date {
+    line-height: normal;
+    color: darkgray;
+}
+
+.project {
+    border-bottom: medium solid lightgray;
+    padding: 10px;
+}
+
+.post {
+   border: medium solid lightgray; 
+}
+
+.attach {
     text-align: center;
 }
 
-.section {
-    float: left;
-}
 
-.left {
-    width: 60%;
-}
-
-.right{
-    width: 40%;
-}
-
+/*
 img {
     margin-left: auto;
     margin-right: auto;
@@ -41,5 +95,4 @@ img {
     vertical-align: middle;
     text-align: center;
     padding: 20px;
-}
-
+}*/
