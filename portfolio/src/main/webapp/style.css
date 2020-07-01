@@ -1,10 +1,16 @@
 
 body {
-    background-color:white;
     font-family: helvetica;
     padding: 0;
     margin: 0;
     letter-spacing: 1.5px;
+}
+
+/* Navigation bar */
+
+.navbar a {
+    color: black;
+    text-decoration: none;
 }
 
 .name {
@@ -32,12 +38,9 @@ body {
     padding-right: 30px;
 }
 
-.nav a {
-    color: black;
-    text-decoration: none;
-}
+/* Content below navigation bar */
 
-#content {
+.content {
     clear: left;
     float: left;
     margin: 0;
@@ -46,7 +49,9 @@ body {
     line-height: 30px; 
 }
 
-#header {
+/* Header for new sections of website */
+
+.header {
     border-top: medium solid lightgray;
     border-bottom: medium solid lightgray;
     text-align: center;
@@ -55,17 +60,28 @@ body {
     padding: 30px;
 }
 
-#header img {
+/* Make bio image circular*/
+
+.header img {
     border-radius: 50%
 }
 
-#bio, #contact, #projectlist, #skilllist, #extralist, .post{
-    padding: 20px;
+/* Reducing width of website elements to 50% */
+
+#bio, #contact, .list, .post{
     width: 50%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
     margin-bottom: 20px;
+    padding: 20px;
+}
+
+/* Add bottom border to resume list and change date text color */
+
+.item {
+    border-bottom: medium solid lightgray;
+    padding: 10px;
 }
 
 .date {
@@ -73,10 +89,7 @@ body {
     color: darkgray;
 }
 
-.project {
-    border-bottom: medium solid lightgray;
-    padding: 10px;
-}
+/* Add border around posts and align attachments to the center */
 
 .post {
    border: medium solid lightgray; 
@@ -86,13 +99,25 @@ body {
     text-align: center;
 }
 
+/* Slideshow cursor and image dimensions and alignment */
 
-/*
-img {
+#prev, #next {
+  cursor: pointer;
+  padding: 20px;
+  color: lightgray;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+#prev:hover, #next:hover {
+  background-color: black;
+}
+
+#slideshow img {
     margin-left: auto;
     margin-right: auto;
-    width: 250px;
+    width: 300px;
     vertical-align: middle;
     text-align: center;
     padding: 20px;
-}*/
+}

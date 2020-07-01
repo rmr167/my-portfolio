@@ -1,42 +1,49 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Rae Moar Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
-  </head>
-  <body>
-    <div id="navbar">
-        <div class="name">RAE MOAR</div>
-        <div class="nav">
-            <ul>
-                <li><a href="index.html">About</a></li>
-                <li><a href="work.html">Work Experience</a></li>
-                <li><a href="blog.html">Blog</a></li>
-            </ul>
-        </div>
-    </div>
-    <div id="content">
-        <div id="header">
-            <h1>Blog</h1>
-            <p>Posts regarding my work with computer science as well as fun additions abrout my life.</p>
-        </div>
-        <div class="post">
-            <h1>Skiing</h1>
-            <p>In addition to computer science, I love to ski! I have been skiing as long as I have been walking. Below is a map of the mountains I have skied.  I plan to continue adding to this list and potentially ski on every continent. Please let me know if you have an skiing suggestions.</p>
-            <div class="attach">
-                <img src="/images/skiing.jpg" width="250px">
-                <iframe src="https://www.google.com/maps/d/embed?mid=1AiEMq2S5mJi4NP1otrxsFZtPy3yW9KAQ" width="640" height="480"></iframe>
+    <head>
+        <meta charset="UTF-8">
+        <title>Rae Moar Portfolio</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <div class="navbar">
+            <div class="name"><a href="index.html">RAE MOAR</a></div>
+            <div class="nav">
+                <ul>
+                    <li><a href="index.html">About</a></li>
+                    <li><a href="work.html">Work Experience</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
             </div>
         </div>
-        <div class="post">
-            <h1>Road Trip</h1>
-            <p>Recently, I went on a road trip from Chicago, IL to Pebble Beach, CA, which was a massive undertaking.  I defintely came to appreciate the landcape of the US much more and how big the US really is. However, being stuck in a car for just under 40 hours is a little traumatizing. Overall, it was an experience I will never forget.</p>
-            <div class="attach">
-                <img src="/images/trip-1.jpg" width="250px">
+        <div class="content">
+            <div class="header">
+                <h1>Blog</h1>
+                <p>Posts regarding my work with computer science as well as fun additions about my life.</p>
+            </div>
+            <div class="post">
+                <h1>Skiing</h1>
+                <p>In addition to computer science, I love to ski! I have been skiing as long as I have been walking. Below is a map of the mountains I have skied.  I plan to continue adding to this list and potentially ski on every continent. Please let me know if you have any skiing suggestions.</p>
+                <div class="attach">
+                    <img src="/images/skiing.jpg" width="250px">
+                    <iframe src="https://www.google.com/maps/d/embed?mid=1AiEMq2S5mJi4NP1otrxsFZtPy3yW9KAQ" width="640" height="480"></iframe>
+                </div>
+            </div>
+            <div class="post">
+                <h1>Road Trip</h1>
+                <p>Recently, I went on a road trip from Chicago, IL to Pebble Beach, CA, which was a massive undertaking.  I defintely came to appreciate the landcape of the US much more and how big the US really is. However, being stuck in a car for just under 40 hours is a little traumatizing. Overall, it was an experience I will never forget.</p>
+                <div class="attach">
+                    <div id="slideshow">
+                        <div id="image-container">
+                            <img src="/images/Trip-1.jpg">
+                        </div>
+                        <a id="prev" onclick="changeSlide(-1)">&#10094;</a>
+                        <a id="next" onclick="changeSlide(1)">&#10095;</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-  </body>
+    </body>
 </html>

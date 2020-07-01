@@ -12,17 +12,42 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-function randomizeImage() {
-  // The images directory contains 5 images, so generate a random index between
-  // 1 and 5.
-  const imageIndex = Math.floor(Math.random() * 5) + 1;
-  const imgUrl = '/images/trip-' + imageIndex + '.jpg';
+//Current index of slide
+var slideIndex = 1;
+
+/* changeSlide(n) - changes the slideIndex by n staying in the range 1 to 18
+    and then calls showSlide() to display the new slide. Note that n will 
+    either 1 or -1.
+*/
+function changeSlide(n) {
+    if (slideIndex + n > 18) {
+        slideIndex = 1;
+    }
+    else if (slideIndex + n < 1) {
+        slideIndex = 18;
+    }
+    else {
+        slideIndex += n;
+    }
+    showSlide();
+}
+
+/* showSlide() - displays the slide corresponding with slideIndex in 
+    image-container and removes the previous image.
+*/
+function showSlide() {
+  const imgUrl = '/images/Trip-' + slideIndex + '.jpg';
 
   const imgElement = document.createElement('img');
   imgElement.src = imgUrl;
 
-  const imageContainer = document.getElementById('random-image-container');
+  const imageContainer = document.getElementById('image-container');
+
   // Remove the previous image.
   imageContainer.innerHTML = '';
+
+  // Add the new image
   imageContainer.appendChild(imgElement);
 }
+
+
