@@ -50,41 +50,27 @@ function showSlide() {
   imageContainer.appendChild(imgElement);
 }
 
-/**
- * Fetches a random quote from the server and adds it to the DOM.
- */
+
 function getData() {
-  console.log('Fetching data.');
+  fetch('/data').then(response => response.json()).then((data) => {
 
-  // The fetch() function returns a Promise because the request is asynchronous.
-  const responsePromise = fetch('/data');
-
-  // When the request is complete, pass the response into handleResponse().
-  responsePromise.then(handleResponse);
+    const dataListElement = document.getElementById('data-container');
+    dataListElement.innerHTML = '';
+    dataListElement.appendChild(
+        createListElement(data[0]));
+    dataListElement.appendChild(
+        createListElement(data[1]));
+    dataListElement.appendChild(
+        createListElement(data[2]));
+  });
 }
 
-/**
- * Handles response by converting it to text and passing the result to
- * addQuoteToDom().
- */
-function handleResponse(response) {
-  console.log('Handling the response.');
-
-  // response.text() returns a Promise, because the response is a stream of
-  // content and not a simple variable.
-  const textPromise = response.text();
-
-  // When the response is converted to text, pass the result into the
-  // addQuoteToDom() function.
-  textPromise.then(addDataToDom);
+/** Creates an <li> element containing text. */
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
 }
 
-/** Adds a random quote to the DOM. */
-function addDataToDom(quote) {
-  console.log('Adding data to dom: ' + quote);
-
-  const textContainer = document.getElementById('text-container');
-  textContainer.innerText = quote;
-}
 
 
