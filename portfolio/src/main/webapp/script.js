@@ -60,7 +60,7 @@ function getData() {
     dataListElement.innerHTML = '';
     var i;
     for (i = 0; i < data.length; i++) {
-        dataListElement.appendChild(createListElement(data[i]));
+        dataListElement.appendChild(createListElement(data[i].text));
     }
   });
 }

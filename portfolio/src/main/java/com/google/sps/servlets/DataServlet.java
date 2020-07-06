@@ -14,46 +14,61 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.gson.Gson;
+import com.google.sps.data.Task;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*; 
-import com.google.gson.Gson;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-    private ArrayList<String> list = new ArrayList<String>();
-
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException { 
+        Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
 
-        // Convert the server stats to JSON
-        String json = convertToJsonUsingGson(list);
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        PreparedQuery results = datastore.prepare(query);
 
-        // Send the JSON as the response
-        response.setContentType("application/json;");
-        response.getWriter().println(json);
-    }
+        List<Task> tasks = new ArrayList<>();
+        for (Entity entity : results.asIterable()) {
+            long id = entity.getKey().getId();
+            String text = (String) entity.getProperty("text");
+            long timestamp = (long) entity.getProperty("timestamp");
 
-    /**
-    * Converts a ServerStats instance into a JSON string using the Gson library. Note: We first added
-    * the Gson library dependency to pom.xml.
-    */
-    private String convertToJsonUsingGson(ArrayList list) {
+            Task task = new Task(id, text, timestamp);
+            tasks.add(task);
+        }
+
         Gson gson = new Gson();
-        String json = gson.toJson(list);
-        return json;
+
+        response.setContentType("application/json;");
+        response.getWriter().println(gson.toJson(tasks));
     }
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String text = request.getParameter("text-input");
 
-        list.add(text);
+        long timestamp = System.currentTimeMillis();
+
+        Entity taskEntity = new Entity("Task");
+        taskEntity.setProperty("text", text);
+        taskEntity.setProperty("timestamp", timestamp);
+
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        datastore.put(taskEntity);
 
         // Redirect back to the HTML page.
         response.sendRedirect("/index.html");
