@@ -68,7 +68,7 @@ body {
 
 /* Reducing width of website elements to 50% */
 
-#bio, #contact, .list, .post{
+#bio, #contact, .list, .post, #comments{
     width: 50%;
     margin-left: auto;
     margin-right: auto;

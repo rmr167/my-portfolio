@@ -15,6 +15,8 @@
 //Current index of slide
 var slideIndex = 1;
 
+getData();
+
 /* changeSlide(n) - changes the slideIndex by n staying in the range 1 to 18
     and then calls showSlide() to display the new slide. Note that n will 
     either 1 or -1.
@@ -56,12 +58,10 @@ function getData() {
 
     const dataListElement = document.getElementById('data-container');
     dataListElement.innerHTML = '';
-    dataListElement.appendChild(
-        createListElement(data[0]));
-    dataListElement.appendChild(
-        createListElement(data[1]));
-    dataListElement.appendChild(
-        createListElement(data[2]));
+    var i;
+    for (i = 0; i < data.length; i++) {
+        dataListElement.appendChild(createListElement(data[i]));
+    }
   });
 }
 
