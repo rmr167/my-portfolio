@@ -15,7 +15,8 @@
 //Current index of slide
 var slideIndex = 1;
 
-getData();
+getData(10, "skiing");
+getData(10, "road");
 
 /* changeSlide(n) - changes the slideIndex by n staying in the range 1 to 18
     and then calls showSlide() to display the new slide. Note that n will 
@@ -52,24 +53,31 @@ function showSlide() {
   imageContainer.appendChild(imgElement);
 }
 
+function refreshData() {
+    var num = parseInt(document.getElementById("mySelect").value);
+    getData(num, "skiing");
+    getData(num, "road");
+}
 
-function getData() {
-  fetch('/data').then(response => response.json()).then((data) => {
-
-    const dataListElement = document.getElementById('data-container');
+function getData(num, post) {
+    fetch('/data?num=' + num.toString() + '&post=' + post).then(response => response.json()).then((data) => {
+    console.log(data);
+    const dataListElement = document.getElementById(post + '-data-container');
     dataListElement.innerHTML = '';
     var i;
     for (i = 0; i < data.length; i++) {
+        console.log(dataListElement);
+        console.log(data[i].text);
         dataListElement.appendChild(createListElement(data[i].text));
     }
-  });
+    });
 }
 
 /** Creates an <li> element containing text. */
 function createListElement(text) {
-  const liElement = document.createElement('li');
-  liElement.innerText = text;
-  return liElement;
+    const liElement = document.createElement('li');
+    liElement.innerText = text;
+    return liElement;
 }
 
 

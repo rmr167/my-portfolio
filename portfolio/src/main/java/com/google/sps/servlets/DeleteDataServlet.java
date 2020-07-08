@@ -34,19 +34,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
-@WebServlet("/data")
-public class DataServlet extends HttpServlet {
+@WebServlet("/delete-data")
+public class DeleteDataServlet extends HttpServlet {
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException { 
-        int num = Integer.parseInt(request.getParameter("num"));
-        String post = request.getParameter("post");
-
-        Filter by_post = new FilterPredicate("post",FilterOperator.EQUAL,post);
-
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
-
-        query.setFilter(by_post);
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
@@ -54,40 +47,9 @@ public class DataServlet extends HttpServlet {
         List<Task> tasks = new ArrayList<>();
         int i = 0;
         for (Entity entity : results.asIterable()) {
-            long id = entity.getKey().getId();
-            String text = (String) entity.getProperty("text");
-            long timestamp = (long) entity.getProperty("timestamp");
-
-            Task task = new Task(id, text, post, timestamp);
-            tasks.add(task);
-            i++;
-            if (i == num) {
-                break;
-            }
+            datastore.delete(entity.getKey());
         }
-
-        Gson gson = new Gson();
-
-        response.setContentType("application/json;");
-        response.getWriter().println(gson.toJson(tasks));
-    }
-
-    @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String text = request.getParameter("text-input");
-        String post = request.getParameter("post");
-
-        long timestamp = System.currentTimeMillis();
-
-        Entity taskEntity = new Entity("Task");
-        taskEntity.setProperty("text", text);
-        taskEntity.setProperty("post", post);
-        taskEntity.setProperty("timestamp", timestamp);
-
-        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        datastore.put(taskEntity);
-
-        // Redirect back to the HTML page.
+        
         response.sendRedirect("/blog.html");
     }
 }

@@ -22,12 +22,36 @@
                 <h1>Blog</h1>
                 <p>Posts regarding my work with computer science as well as fun additions about my life.</p>
             </div>
+            <div id="pref-comments">
+                <p>Select maximum number of comments per post: </p>
+                <select id="mySelect" onchange="refreshData()">
+                    <option value="10">10
+                    <option value="20">20
+                    <option value="30">30
+                    <option value="40">40
+                </select>
+                <form action="/delete-data" method="POST">
+                    <p>Delete all comments:</p>
+                    <input type="submit" />
+                </form>
+            </div>
             <div class="post">
                 <h1>Skiing</h1>
                 <p>In addition to computer science, I love to ski! I have been skiing as long as I have been walking. Below is a map of the mountains I have skied.  I plan to continue adding to this list and potentially ski on every continent. Please let me know if you have any skiing suggestions.</p>
                 <div class="attach">
                     <img src="/images/skiing.jpg" width="400px">
+                    <br>
                     <iframe src="https://www.google.com/maps/d/embed?mid=1AiEMq2S5mJi4NP1otrxsFZtPy3yW9KAQ" width="640" height="480"></iframe>
+                </div>
+                <div class="comments">
+                    <h1>Comments:</h1>
+                    <div id="skiing-data-container"></div>
+                    <form action="/data?post=skiing" method="POST">
+                        <p>Enter a comment:</p>
+                        <textarea name="text-input"></textarea>
+                        <br/><br/>
+                        <input type="submit" />
+                    </form>
                 </div>
             </div>
             <div class="post">
@@ -40,8 +64,17 @@
                         </div>
                         <a id="prev" onclick="changeSlide(-1)">&#10094;</a>
                         <a id="next" onclick="changeSlide(1)">&#10095;</a>
-                        </div>
                     </div>
+                </div>
+                <div class="comments">
+                    <h1>Comments:</h1>
+                    <div id="road-data-container"></div>
+                    <form action="/data?post=road" method="POST">
+                        <p>Enter a comment:</p>
+                        <textarea name="text-input"></textarea>
+                        <br/><br/>
+                        <input type="submit" />
+                    </form>
                 </div>
             </div>
         </div>

@@ -19,11 +19,13 @@ public final class Task {
 
   private final long id;
   private final String text;
+  private final String post;
   private final long timestamp;
 
-  public Task(long id, String text, long timestamp) {
+  public Task(long id, String text, String post, long timestamp) {
     this.id = id;
     this.text = text;
+    this.post = post;
     this.timestamp = timestamp;
   }
 }
