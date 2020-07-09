@@ -4,9 +4,10 @@
         <meta charset="UTF-8">
         <title>Rae Moar Portfolio</title>
         <link rel="stylesheet" href="style.css">
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClSl3pEjZ5KZLJnnCIo9uZyFXVGHZ44gk"></script>
         <script src="script.js"></script>
     </head>
-    <body>
+    <body onload="initMap();">
         <div class="navbar">
             <div class="name"><a href="index.html">RAE MOAR</a></div>
             <div class="nav">
@@ -41,7 +42,7 @@
                 <div class="attach">
                     <img src="/images/skiing.jpg" width="400px">
                     <br>
-                    <iframe src="https://www.google.com/maps/d/embed?mid=1AiEMq2S5mJi4NP1otrxsFZtPy3yW9KAQ" width="640" height="480"></iframe>
+                    <div id="map"></div>
                 </div>
                 <div class="comments">
                     <h1>Comments:</h1>

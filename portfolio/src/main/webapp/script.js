@@ -15,6 +15,19 @@
 //Current index of slide
 var slideIndex = 1;
 
+var ski_resorts = [
+    ["Big Sky Resort", 45.28, -111.4, 1],
+    ["Sundance Mountain Resort", 40.393329, -111.588772, 2],
+    ["Badger Pass Ski Area", 37.662217, -119.663344, 3],
+    ["June Mountain Ski Area", 37.767874, -119.090704, 4],
+    ["Mammoth Mountain", 37.651021, -119.026706, 5],
+    ["Ski Santa Fe", 35.796174, -105.802357, 6],
+    ["Killington Ski Area", 43.625918, -72.796370, 7],
+    ["Plattekill Mountain", 42.290269, -74.653214, 8],
+    ["Liberty Mountain Resort", 39.763635, -77.375373, 9],
+    ["Whitetail Resort", 39.741752, -77.933335, 10]
+];
+
 getData(10, "skiing");
 getData(10, "road");
 
@@ -61,13 +74,10 @@ function refreshData() {
 
 function getData(num, post) {
     fetch('/data?num=' + num.toString() + '&post=' + post).then(response => response.json()).then((data) => {
-    console.log(data);
     const dataListElement = document.getElementById(post + '-data-container');
     dataListElement.innerHTML = '';
     var i;
     for (i = 0; i < data.length; i++) {
-        console.log(dataListElement);
-        console.log(data[i].text);
         dataListElement.appendChild(createListElement(data[i].text));
     }
     });
@@ -80,5 +90,22 @@ function createListElement(text) {
     return liElement;
 }
 
+function initMap() {
+    var map = new google.maps.Map(
+      document.getElementById('map'),
+      {center: {lat: 40, lng: -97}, zoom: 4});
+
+    for (var i = 0; i < ski_resorts.length; i++) {
+        var ski = ski_resorts[i];
+        console.log(ski)
+        var marker = new google.maps.Marker({
+            position: { lat: ski[1], lng: ski[2] },
+            map: map,
+            title: ski[0],
+            zIndex: ski[3]
+        });
+    }
+
+}
 
 

@@ -125,3 +125,11 @@ body {
     text-align: center;
     padding: 20px;
 }
+
+#map {
+  border: thin solid black;
+  height: 400px;
+  width: 600px;
+  margin-right: auto;
+  margin-left: auto;
+}
