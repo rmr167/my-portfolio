@@ -14,6 +14,8 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -57,8 +59,9 @@ public class DataServlet extends HttpServlet {
             long id = entity.getKey().getId();
             String text = (String) entity.getProperty("text");
             long timestamp = (long) entity.getProperty("timestamp");
+            String nickname = (String) entity.getProperty("nickname");
 
-            Task task = new Task(id, text, post, timestamp);
+            Task task = new Task(id, text, post, timestamp, nickname);
             tasks.add(task);
             i++;
             if (i == num) {
@@ -79,15 +82,35 @@ public class DataServlet extends HttpServlet {
 
         long timestamp = System.currentTimeMillis();
 
+        UserService userService = UserServiceFactory.getUserService();
+
+        String id = userService.getCurrentUser().getUserId();
+        String nickname = getUserNickname(id);
+
         Entity taskEntity = new Entity("Task");
         taskEntity.setProperty("text", text);
         taskEntity.setProperty("post", post);
         taskEntity.setProperty("timestamp", timestamp);
+        taskEntity.setProperty("nickname", nickname);
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         datastore.put(taskEntity);
 
         // Redirect back to the HTML page.
         response.sendRedirect("/blog.html");
+    }
+
+    private String getUserNickname(String id) {
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        Query query =
+            new Query("UserInfo")
+                .setFilter(new Query.FilterPredicate("id", Query.FilterOperator.EQUAL, id));
+        PreparedQuery results = datastore.prepare(query);
+        Entity entity = results.asSingleEntity();
+        if (entity == null) {
+        return "";
+        }
+        String nickname = (String) entity.getProperty("nickname");
+        return nickname;
     }
 }

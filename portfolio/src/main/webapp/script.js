@@ -15,6 +15,8 @@
 //Current index of slide
 var slideIndex = 1;
 
+var nickname = null;
+
 var ski_resorts = [
     ["Big Sky Resort", 45.28, -111.4, 1],
     ["Sundance Mountain Resort", 40.393329, -111.588772, 2],
@@ -78,15 +80,15 @@ function getData(num, post) {
     dataListElement.innerHTML = '';
     var i;
     for (i = 0; i < data.length; i++) {
-        dataListElement.appendChild(createListElement(data[i].text));
+        dataListElement.appendChild(createListElement(data[i].text, data[i].nickname));
     }
     });
 }
 
 /** Creates an <li> element containing text. */
-function createListElement(text) {
+function createListElement(text, nickname) {
     const liElement = document.createElement('li');
-    liElement.innerText = text;
+    liElement.innerText = text + " by " + nickname;
     return liElement;
 }
 
@@ -105,7 +107,56 @@ function initMap() {
             zIndex: ski[3]
         });
     }
-
 }
 
+function getAccount() {
+    console.log("getting account");
+    fetch('/login').then(response => response.json()).then((data) => {
+    var login_button = document.getElementById("login");
+    var logout_button = document.getElementById("logout");
+    var no_user_div = document.getElementById("no-user");
+    var user_div = document.getElementById("user");
+    var welcome_header = document.getElementById("welcome");
 
+    nickname = data.nickname;
+    
+    if (data.loginUrl != null) {
+        no_user_div.style.display = "block";
+        user_div.style.display = "none";
+        login_button.href = data.loginUrl;
+    }
+    else {
+        no_user_div.style.display = "none";
+        user_div.style.display = "block";
+        if (data.nickname == null) {
+            logout_button.style.display = "none";
+            welcome_header.innerText = "Set nickname below";
+        }
+        else {
+            logout_button.style.display = "block";
+            welcome_header.innerText = "Welcome " + data.nickname + "!";
+            logout_button.href = data.logoutUrl;
+        }
+    }});
+}
+
+function getNickname() {
+    console.log("determining comments section");
+    fetch('/login').then(response => response.json()).then((data) => {
+    
+    var comments = document.querySelectorAll(".comments");
+    var pref_comments = document.getElementById("pref-comments"); 
+
+    if (data.id == null) {
+        for (var i = 0; i < comments.length; i++) {
+            comments[i].style.display = 'none';
+        }
+        pref_comments.style.display = 'none';
+    }
+    else {
+        for (var i = 0; i < comments.length; i++) {
+            comments[i].style.display = 'block';
+        }
+        pref_comments.style.display = 'block';
+    }});
+}

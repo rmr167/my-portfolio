@@ -15,19 +15,17 @@
 package com.google.sps.data;
 
 /** An item on a todo list. */
-public final class Task {
+public final class Account {
 
-  private final long id;
-  private final String text;
-  private final String post;
-  private final long timestamp;
+  private final String id;
+  private final String loginUrl;
+  private final String logoutUrl;
   private final String nickname;
 
-  public Task(long id, String text, String post, long timestamp, String nickname) {
+  public Account(String id, String loginUrl, String logoutUrl, String nickname) {
     this.id = id;
-    this.text = text;
-    this.post = post;
-    this.timestamp = timestamp;
+    this.loginUrl = loginUrl;
+    this.logoutUrl = logoutUrl;
     this.nickname = nickname;
   }
 }
