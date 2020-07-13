@@ -128,7 +128,8 @@ public final class FindMeetingQueryTest {
   @Test
   public void everyAttendeeIsConsideredWithOptional1() {
     // Have each person have different events. We should see two options because each person has
-    // split the restricted times.
+    // split the restricted times. With optional attendee with events throughout the whole day so 
+    // their preferences are not accounted for.
     //
     // Events  :       |--A--|     |--B--|
     // Day     : |-----------------------------|
@@ -159,7 +160,7 @@ public final class FindMeetingQueryTest {
   @Test
   public void everyAttendeeIsConsideredWithOptional2() {
     // Have each person have different events. We should see two options because each person has
-    // split the restricted times.
+    // split the restricted times. Includes optional attendee who will be accounted for their open slots.
     //
     // Events  :       |--A--|     |--B--|
     // Day     : |-----------------------------|
@@ -291,7 +292,8 @@ public final class FindMeetingQueryTest {
   @Test
   public void justEnoughRoomWithOptional() {
     // Have one person, but make it so that there is just enough room at one point in the day to
-    // have the meeting.
+    // have the meeting. Add optional person with meeting during that time slot but would make the 
+    // remaining time slot less than the wanted duration.
     //
     // Events  : |--A--|     |----A----|
     // Day     : |---------------------|
@@ -318,6 +320,9 @@ public final class FindMeetingQueryTest {
 
   @Test
   public void optionalAttendees() {
+    // Have only two optional attendees with event throughout the day such that they are 
+    // all accounted for,
+
     Collection<Event> events = Arrays.asList(
         new Event("Event 1", TimeRange.fromStartEnd(TIME_0800AM, TIME_0830AM, false),
             Arrays.asList(PERSON_A)),
@@ -343,6 +348,8 @@ public final class FindMeetingQueryTest {
 
   @Test
   public void optionalAttendeesFilled() {
+    // Have two optional attendees who are filled all day.  The return should be the range of the whole day 
+    // because that is the preference for the zero mandatory attendees.
     Collection<Event> events = Arrays.asList(
         new Event("Event 1", TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TimeRange.END_OF_DAY, true),
             Arrays.asList(PERSON_A)),
