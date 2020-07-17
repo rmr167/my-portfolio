@@ -7,7 +7,7 @@
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClSl3pEjZ5KZLJnnCIo9uZyFXVGHZ44gk"></script>
         <script src="script.js"></script>
     </head>
-    <body onload="initMap(); getNickname();">
+    <body onload="initMap(); displayComments();">
         <div class="navbar">
             <div class="name"><a href="index.html">RAE MOAR</a></div>
             <div class="nav">
@@ -25,17 +25,21 @@
                 <p>Posts regarding my work with computer science as well as fun additions about my life.</p>
             </div>
             <div id="pref-comments">
-                <p>Select maximum number of comments per post: </p>
-                <select id="mySelect" onchange="refreshData()">
-                    <option value="10">10
-                    <option value="20">20
-                    <option value="30">30
-                    <option value="40">40
-                </select>
-                <form action="/delete-data" method="POST">
-                    <p>Delete all comments:</p>
-                    <input type="submit" />
-                </form>
+                <div id="num-comments">
+                    <p>Select maximum number of comments per post: 
+                    <select id="mySelect" onchange="displayComments()">
+                        <option value="10">10
+                        <option value="20">20
+                        <option value="30">30
+                        <option value="40">40
+                    </select>
+                    </p>
+                </div>
+                <div id="delete-comments">
+                    <form action="/delete-data" method="POST">
+                        <p>Delete all comments:  <input class="button" type="submit" /></p>
+                    </form>
+                </div>
             </div>
             <div class="post">
                 <h1>Skiing</h1>
@@ -51,8 +55,8 @@
                     <form action="/data?post=skiing" method="POST">
                         <p>Enter a comment:</p>
                         <textarea name="text-input"></textarea>
-                        <br/><br/>
-                        <input type="submit" />
+                        <br/>
+                        <input class="button" type="submit" />
                     </form>
                 </div>
             </div>
@@ -74,8 +78,8 @@
                     <form action="/data?post=road" method="POST">
                         <p>Enter a comment:</p>
                         <textarea name="text-input"></textarea>
-                        <br/><br/>
-                        <input type="submit" />
+                        <br/>
+                        <input class= "button" type="submit" />
                     </form>
                 </div>
             </div>

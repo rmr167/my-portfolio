@@ -14,7 +14,7 @@
 
 package com.google.sps.data;
 
-/** An item on a todo list. */
+/** An item holding the account information for a user. */
 public final class Account {
 
   private final String id;

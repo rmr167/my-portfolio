@@ -27,7 +27,7 @@ import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.gson.Gson;
 import com.google.sps.data.Task;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
@@ -44,11 +44,9 @@ public class DataServlet extends HttpServlet {
         int num = Integer.parseInt(request.getParameter("num"));
         String post = request.getParameter("post");
 
-        Filter by_post = new FilterPredicate("post",FilterOperator.EQUAL,post);
+        Filter by_post = new FilterPredicate("post", FilterOperator.EQUAL, post);
 
-        Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
-
-        query.setFilter(by_post);
+        Query query = new Query("Task").setFilter(by_post).addSort("timestamp", SortDirection.DESCENDING);
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
@@ -108,7 +106,7 @@ public class DataServlet extends HttpServlet {
         PreparedQuery results = datastore.prepare(query);
         Entity entity = results.asSingleEntity();
         if (entity == null) {
-        return "";
+            return "";
         }
         String nickname = (String) entity.getProperty("nickname");
         return nickname;

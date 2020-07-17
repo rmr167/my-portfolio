@@ -12,10 +12,102 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/*****************************************************************************/
+// blog.html
+/*****************************************************************************/
+
+// Comments
+var admin_id = 112865514776630612047;
+
+getComments('skiing', true); 
+getComments('road', true);
+
+// Determine whether the comments should be displayed (if the user is logged in)
+function displayComments() {
+    var comments = document.querySelectorAll(".comments");
+    var num_comments = document.getElementById("num-comments"); 
+    var delete_comments = document.getElementById("delete-comments"); 
+    for (var i = 0; i < comments.length; i++) {
+        comments[i].style.display = 'none';
+    }
+    num_comments.style.display = 'none';
+    delete_comments.style.display = 'none';
+    fetch('/login').then(response => response.json()).then((data) => {
+    if (data.id != null) {
+        for (var i = 0; i < comments.length; i++) {
+            comments[i].style.display = 'block';
+        }
+        num_comments.style.display = 'block';
+        if (data.id == admin_id) {
+            delete_comments.style.display = 'block';
+        }
+        getComments('skiing', false); 
+        getComments('road', false);
+    }});
+}
+
+// Get the json containing comments information from the DataServlet
+function getComments(post, default_num) {
+    var num = 10;
+    if (default_num == false) {
+        num = parseInt(document.getElementById("mySelect").value);
+    }
+    fetch('/data?num=' + num.toString() + '&post=' + post).then(response => response.json()).then((data) => {
+    const dataListElement = document.getElementById(post + '-data-container');
+    dataListElement.innerHTML = '';
+    var i;
+    for (i = 0; i < data.length; i++) {
+        dataListElement.appendChild(createListElement(data[i].text, data[i].nickname));
+    }
+    });
+}
+
+// Creates an <li> element containing the comments text
+function createListElement(text, nickname) {
+    const liElement = document.createElement('li');
+    liElement.innerText = text + " by " + nickname;
+    return liElement;
+}
+
+/*****************************************************************************/
+
+// Slideshow
+
 //Current index of slide
 var slideIndex = 1;
 
-var nickname = null;
+// Changes the slideIndex by n staying in the range 1 to 18 and then calls showSlide() to display the 
+// new slide. Note that n will either 1 or -1.
+function changeSlide(n) {
+    if (slideIndex + n > 18) {
+        slideIndex = 1;
+    }
+    else if (slideIndex + n < 1) {
+        slideIndex = 18;
+    }
+    else {
+        slideIndex += n;
+    }
+    showSlide();
+}
+
+// Displays the slide corresponding with slideIndex in image-container and removes the previous image.
+function showSlide() {
+  const imgUrl = '/images/Trip-' + slideIndex + '.jpg';
+
+  const imgElement = document.createElement('img');
+  imgElement.src = imgUrl;
+
+  const imageContainer = document.getElementById('image-container');
+
+  imageContainer.innerHTML = '';
+
+  imageContainer.appendChild(imgElement);
+}
+
+/*****************************************************************************/
+
+// Map
 
 var ski_resorts = [
     ["Big Sky Resort", 45.28, -111.4, 1],
@@ -30,68 +122,7 @@ var ski_resorts = [
     ["Whitetail Resort", 39.741752, -77.933335, 10]
 ];
 
-getData(10, "skiing");
-getData(10, "road");
-
-/* changeSlide(n) - changes the slideIndex by n staying in the range 1 to 18
-    and then calls showSlide() to display the new slide. Note that n will 
-    either 1 or -1.
-*/
-function changeSlide(n) {
-    if (slideIndex + n > 18) {
-        slideIndex = 1;
-    }
-    else if (slideIndex + n < 1) {
-        slideIndex = 18;
-    }
-    else {
-        slideIndex += n;
-    }
-    showSlide();
-}
-
-/* showSlide() - displays the slide corresponding with slideIndex in 
-    image-container and removes the previous image.
-*/
-function showSlide() {
-  const imgUrl = '/images/Trip-' + slideIndex + '.jpg';
-
-  const imgElement = document.createElement('img');
-  imgElement.src = imgUrl;
-
-  const imageContainer = document.getElementById('image-container');
-
-  // Remove the previous image.
-  imageContainer.innerHTML = '';
-
-  // Add the new image
-  imageContainer.appendChild(imgElement);
-}
-
-function refreshData() {
-    var num = parseInt(document.getElementById("mySelect").value);
-    getData(num, "skiing");
-    getData(num, "road");
-}
-
-function getData(num, post) {
-    fetch('/data?num=' + num.toString() + '&post=' + post).then(response => response.json()).then((data) => {
-    const dataListElement = document.getElementById(post + '-data-container');
-    dataListElement.innerHTML = '';
-    var i;
-    for (i = 0; i < data.length; i++) {
-        dataListElement.appendChild(createListElement(data[i].text, data[i].nickname));
-    }
-    });
-}
-
-/** Creates an <li> element containing text. */
-function createListElement(text, nickname) {
-    const liElement = document.createElement('li');
-    liElement.innerText = text + " by " + nickname;
-    return liElement;
-}
-
+// Create the map for the skiing blog
 function initMap() {
     var map = new google.maps.Map(
       document.getElementById('map'),
@@ -99,7 +130,6 @@ function initMap() {
 
     for (var i = 0; i < ski_resorts.length; i++) {
         var ski = ski_resorts[i];
-        console.log(ski)
         var marker = new google.maps.Marker({
             position: { lat: ski[1], lng: ski[2] },
             map: map,
@@ -109,21 +139,27 @@ function initMap() {
     }
 }
 
+/*****************************************************************************/
+// account.html
+/*****************************************************************************/
+
+// Account
+
+// Determine the inner html for the account page (based on whether the user is logged in)
 function getAccount() {
-    console.log("getting account");
-    fetch('/login').then(response => response.json()).then((data) => {
+
     var login_button = document.getElementById("login");
     var logout_button = document.getElementById("logout");
     var no_user_div = document.getElementById("no-user");
     var user_div = document.getElementById("user");
     var welcome_header = document.getElementById("welcome");
 
-    nickname = data.nickname;
-    
+    fetch('/login').then(response => response.json()).then((data) => {
     if (data.loginUrl != null) {
         no_user_div.style.display = "block";
         user_div.style.display = "none";
         login_button.href = data.loginUrl;
+        welcome_header.innerText = "Welcome!";
     }
     else {
         no_user_div.style.display = "none";
@@ -133,30 +169,9 @@ function getAccount() {
             welcome_header.innerText = "Set nickname below";
         }
         else {
-            logout_button.style.display = "block";
+            logout_button.style.display = "inline";
             welcome_header.innerText = "Welcome " + data.nickname + "!";
             logout_button.href = data.logoutUrl;
         }
-    }});
-}
-
-function getNickname() {
-    console.log("determining comments section");
-    fetch('/login').then(response => response.json()).then((data) => {
-    
-    var comments = document.querySelectorAll(".comments");
-    var pref_comments = document.getElementById("pref-comments"); 
-
-    if (data.id == null) {
-        for (var i = 0; i < comments.length; i++) {
-            comments[i].style.display = 'none';
-        }
-        pref_comments.style.display = 'none';
-    }
-    else {
-        for (var i = 0; i < comments.length; i++) {
-            comments[i].style.display = 'block';
-        }
-        pref_comments.style.display = 'block';
     }});
 }

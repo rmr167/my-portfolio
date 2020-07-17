@@ -4,7 +4,6 @@
         <meta charset="UTF-8">
         <title>Rae Moar Portfolio</title>
         <link rel="stylesheet" href="style.css">
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClSl3pEjZ5KZLJnnCIo9uZyFXVGHZ44gk"></script>
         <script src="script.js"></script>
     </head>
     <body onload="getAccount();">
@@ -24,17 +23,17 @@
                 <h1>Account</h1>
             </div>
             <div id="account">
+                <h1 id="welcome">Welcome!</h1>
                 <div id="no-user">
                     <a class="button" id="login">Login</a>
                 </div>
                 <div id="user">
-                    <h1 id="welcome">Hello!</h1>
                     <a class="button" id="logout">Logout</a>
                     <form action="/nickname" method="POST">
                         <p>Change nickname:</p>
                         <textarea name="nickname-input"></textarea>
-                        <br/><br/>
-                        <input type="submit"/>
+                        <br />
+                        <input class="button" type="submit"/>
                     </form>
                 </div>
             </div>
