@@ -1,9 +1,200 @@
-#content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
+
+body {
+    font-family: helvetica;
+    letter-spacing: 1.5px;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-#greeting-container {
-  margin-top: 20px;
+/* Add cursor when any link/button is hovered on */
+
+a:hover, input:hover, select:hover {
+  cursor: pointer;
+}
+
+/* Navigation bar */
+
+.navbar a {
+    color: black;
+    text-decoration: none;
+}
+
+.name {
+    float: left;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: left;
+    padding: 30px;
+}
+
+.nav {
+    float: right;
+}
+
+.nav ul {
+    list-style-type: none;
+    padding: 30px;
+    text-align: right;
+    vertical-align: middle;
+}
+
+.nav li {
+    display: inline;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+/* Content below navigation bar */
+
+.content {
+    clear: left;
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    line-height: 30px; 
+}
+
+/* Header for new sections of website */
+
+.header {
+    border-top: medium solid lightgray;
+    border-bottom: medium solid lightgray;
+    text-align: center;
+    background-color: lightblue;
+    width:100%; 
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+/* Make bio image circular*/
+
+.header img {
+    border-radius: 50%
+}
+
+/* Reducing width of website elements to 50% */
+
+#bio, .list, .post, #account {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+#contact {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+/* Add bottom border to resume list and change date text color */
+
+.item {
+    border-bottom: medium solid lightgray;
+    padding: 10px;
+}
+
+.date {
+    line-height: normal;
+    color: darkgray;
+}
+
+/* Add fixed height and in-block formatting to the comments preferences 
+for blog.html */
+
+#pref-comments {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10px;
+}
+
+/* Initially do not display comments or preferences. */
+
+.comments, #num-comments, #delete-comments {
+    display: none;
+}
+
+
+.comments {
+    list-style-type: none;
+}
+
+.comments li {
+    padding: 5px;
+    margin: 5px;
+    background-color: rgb(230, 230, 230);
+}
+
+
+/* Add border around posts and align attachments to the center */
+
+.post {
+   border: medium solid lightgray; 
+}
+
+.attach {
+    text-align: center;
+}
+
+/* Slideshow cursor and image dimensions and alignment */
+
+#prev, #next {
+  cursor: pointer;
+  padding: 20px;
+  color: lightgray;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+#prev:hover, #next:hover {
+  background-color: black;
+}
+
+#image-container {
+    height: 500px;
+}
+
+#slideshow img {
+    margin-left: auto;
+    margin-right: auto;
+    height: 450px;
+    vertical-align: middle;
+    text-align: center;
+    padding: 20px;
+}
+
+#map {
+  border: thin solid black;
+  height: 400px;
+  width: 600px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* Formatting for account buttons */
+
+#user, #no-user {
+    display: none;
+}
+
+.button {
+    display: inline;
+    padding: 5px;
+    background-color: rgb(230, 230, 230);
+    color: black;
+    border: 2px solid black; 
+    border-radius: 3px;
+    text-decoration: none;
+    font-family: helvetica;
+    letter-spacing: 1.5px;
+    font-size: 15px;
 }

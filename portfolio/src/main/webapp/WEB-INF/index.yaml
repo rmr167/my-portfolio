@@ -1,0 +1,6 @@
+indexes:
+- kind: Task
+  properties:
+  - name: post
+  - name: timestamp
+    direction: desc

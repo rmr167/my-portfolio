@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Rae Moar Portfolio</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+    </head>
+    <body onload="getAccount();">
+        <div class="navbar">
+            <div class="name"><a href="index.html">RAE MOAR</a></div>
+            <div class="nav">
+                <ul>
+                    <li><a href="index.html">About</a></li>
+                    <li><a href="work.html">Work Experience</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="account.html">Account</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="content">
+            <div class="header">
+                <h1>Account</h1>
+            </div>
+            <div id="account">
+                <h1 id="welcome">Welcome!</h1>
+                <div id="no-user">
+                    <a class="button" id="login">Login</a>
+                </div>
+                <div id="user">
+                    <a class="button" id="logout">Logout</a>
+                    <form action="/nickname" method="POST">
+                        <p>Change nickname:</p>
+                        <textarea name="nickname-input"></textarea>
+                        <br />
+                        <input class="button" type="submit"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

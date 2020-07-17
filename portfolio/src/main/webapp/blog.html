@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Rae Moar Portfolio</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClSl3pEjZ5KZLJnnCIo9uZyFXVGHZ44gk"></script>
+        <script src="script.js"></script>
+    </head>
+    <body onload="initMap(); displayComments();">
+        <div class="navbar">
+            <div class="name"><a href="index.html">RAE MOAR</a></div>
+            <div class="nav">
+                <ul>
+                    <li><a href="index.html">About</a></li>
+                    <li><a href="work.html">Work Experience</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="account.html">Account</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="content">
+            <div class="header">
+                <h1>Blog</h1>
+                <p>Posts regarding my work with computer science as well as fun additions about my life.</p>
+            </div>
+            <div id="pref-comments">
+                <div id="num-comments">
+                    <p>Select maximum number of comments per post: 
+                    <select id="mySelect" onchange="displayComments()">
+                        <option value="10">10
+                        <option value="20">20
+                        <option value="30">30
+                        <option value="40">40
+                    </select>
+                    </p>
+                </div>
+                <div id="delete-comments">
+                    <form action="/delete-data" method="POST">
+                        <p>Delete all comments:  <input class="button" type="submit" /></p>
+                    </form>
+                </div>
+            </div>
+            <div class="post">
+                <h1>Skiing</h1>
+                <p>In addition to computer science, I love to ski! I have been skiing as long as I have been walking. Below is a map of the mountains I have skied.  I plan to continue adding to this list and potentially ski on every continent. Please let me know if you have any skiing suggestions.</p>
+                <div class="attach">
+                    <img src="/images/skiing.jpg" width="400px">
+                    <br>
+                    <div id="map"></div>
+                </div>
+                <div class="comments">
+                    <h1>Comments:</h1>
+                    <div id="skiing-data-container"></div>
+                    <form action="/data?post=skiing" method="POST">
+                        <p>Enter a comment:</p>
+                        <textarea name="text-input"></textarea>
+                        <br/>
+                        <input class="button" type="submit" />
+                    </form>
+                </div>
+            </div>
+            <div class="post">
+                <h1>Road Trip</h1>
+                <p>Recently, I went on a road trip from Chicago, IL to Pebble Beach, CA, which was a massive undertaking.  I defintely came to appreciate the landcape of the US much more and how big the US really is. However, being stuck in a car for just under 40 hours is a little traumatizing. Overall, it was an experience I will never forget.</p>
+                <div class="attach">
+                    <div id="slideshow">
+                        <div id="image-container">
+                            <img src="/images/Trip-1.jpg">
+                        </div>
+                        <a id="prev" onclick="changeSlide(-1)">&#10094;</a>
+                        <a id="next" onclick="changeSlide(1)">&#10095;</a>
+                    </div>
+                </div>
+                <div class="comments">
+                    <h1>Comments:</h1>
+                    <div id="road-data-container"></div>
+                    <form action="/data?post=road" method="POST">
+                        <p>Enter a comment:</p>
+                        <textarea name="text-input"></textarea>
+                        <br/>
+                        <input class= "button" type="submit" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
