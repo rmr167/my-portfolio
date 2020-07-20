@@ -117,7 +117,6 @@ var ski_resorts = [
     ["Mammoth Mountain", 37.651021, -119.026706, 5, "/images/mammoth.jpg"],
     ["Ski Santa Fe", 35.796174, -105.802357, 6, "/images/santafe.jpg"],
     ["Killington Ski Area", 43.625918, -72.796370, 7, "/images/killington.jpg"],
-    ["Plattekill Mountain", 42.290269, -74.653214, 8, "/images/plattekill.jpg"], 
     ["Whitetail Resort", 39.741752, -77.933335, 10, "/images/whitetail.jpg"]
 ];
 
