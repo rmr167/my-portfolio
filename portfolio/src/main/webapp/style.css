@@ -180,6 +180,15 @@ for blog.html */
   margin-left: auto;
 }
 
+#ski-container img{
+    height: 400px;
+    margin-right: auto;
+    margin-left: auto;
+    vertical-align: middle;
+    text-align: center;
+    padding: 20px;
+}
+
 /* Formatting for account buttons */
 
 #user, #no-user {

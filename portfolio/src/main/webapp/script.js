@@ -110,32 +110,49 @@ function showSlide() {
 // Map
 
 var ski_resorts = [
-    ["Big Sky Resort", 45.28, -111.4, 1],
-    ["Sundance Mountain Resort", 40.393329, -111.588772, 2],
-    ["Badger Pass Ski Area", 37.662217, -119.663344, 3],
-    ["June Mountain Ski Area", 37.767874, -119.090704, 4],
-    ["Mammoth Mountain", 37.651021, -119.026706, 5],
-    ["Ski Santa Fe", 35.796174, -105.802357, 6],
-    ["Killington Ski Area", 43.625918, -72.796370, 7],
-    ["Plattekill Mountain", 42.290269, -74.653214, 8],
-    ["Liberty Mountain Resort", 39.763635, -77.375373, 9],
-    ["Whitetail Resort", 39.741752, -77.933335, 10]
+    ["Big Sky Resort", 45.28, -111.4, 1, "/images/bigsky.jpg"],
+    ["Sundance Mountain Resort", 40.393329, -111.588772, 2, "/images/sundance.jpg"],
+    ["Badger Pass Ski Area", 37.662217, -119.663344, 3, "/images/yosemite.jpg"],
+    ["June Mountain Ski Area", 37.767874, -119.090704, 4, "/images/june.jpg"],
+    ["Mammoth Mountain", 37.651021, -119.026706, 5, "/images/mammoth.jpg"],
+    ["Ski Santa Fe", 35.796174, -105.802357, 6, "/images/santafe.jpg"],
+    ["Killington Ski Area", 43.625918, -72.796370, 7, "/images/killington.jpg"],
+    ["Plattekill Mountain", 42.290269, -74.653214, 8, "/images/plattekill.jpg"], 
+    ["Whitetail Resort", 39.741752, -77.933335, 10, "/images/whitetail.jpg"]
 ];
 
 // Create the map for the skiing blog
 function initMap() {
-    var map = new google.maps.Map(
-      document.getElementById('map'),
-      {center: {lat: 40, lng: -97}, zoom: 4});
 
-    for (var i = 0; i < ski_resorts.length; i++) {
-        var ski = ski_resorts[i];
-        var marker = new google.maps.Marker({
-            position: { lat: ski[1], lng: ski[2] },
-            map: map,
-            title: ski[0],
-            zIndex: ski[3]
+    const imageContainer = document.getElementById('ski-container');
+
+    var infowindow =  new google.maps.InfoWindow({});
+    
+    var map = new google.maps.Map(
+        document.getElementById('map'),
+        {center: {lat: 40, lng: -97}, zoom: 4});
+
+    var marker, i;
+
+    for (i = 0; i < ski_resorts.length; i++) {
+
+        marker = new google.maps.Marker({
+            position: { lat: ski_resorts[i][1], lng: ski_resorts[i][2] },
+            map: map
         });
+
+        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+            return function () {
+                var imgElement = document.createElement('img');
+                imgElement.src = ski_resorts[i][4];
+
+                imageContainer.innerHTML = '';
+                imageContainer.appendChild(imgElement);
+
+                infowindow.setContent(ski_resorts[i][0]);
+                infowindow.open(map, marker);
+            }
+        })(marker, i));
     }
 }
 
